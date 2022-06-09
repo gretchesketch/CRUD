@@ -6,6 +6,8 @@ var cors = require('cors');
 var app = express();
 const dotenv = require("dotenv");
 const { response } = require("express");
+const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 dotenv.config();
 

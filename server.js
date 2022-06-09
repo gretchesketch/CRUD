@@ -5,6 +5,7 @@ const express = require("express");
 var cors = require('cors');
 var app = express();
 const dotenv = require("dotenv");
+const { response } = require("express");
 
 dotenv.config();
 
@@ -15,21 +16,26 @@ app.use(express.urlencoded({ extended : false}));
 
 //routes
 //create
-app.post("/", (req, res) => {
-
-});
-
-//read
-app.post("/", (req, res) => {
-
-});
-
-//update
 app.post("/insert", (req, res) => {
 
 });
 
-//delete
+//read
 app.get("/getAll", (req, res) => {
-    console.log("test");
+    response.json({
+        success: true
+    });
 });
+
+//update
+app.post("/", (req, res) => {
+
+});
+
+//delete
+app.get("/", (req, res) => {
+    
+});
+
+//app listening on PORT
+app.listen(process.env.PORT, () => console.log("app is running"));

@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const mysql = require('mysql');
 require('dotenv').config();
 
 let sequelize;
@@ -19,18 +20,6 @@ if (process.env.JAWSDB_URL) {
 }
 
 
-const mysql = require('mysql');
-const dotenv = require('dotenv');
-let instance = null;
-dotenv.config();
-
-const connection = mysql.createConnection({
-    host: process.env.HOST,
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: process.env.DATABASE,
-    port: process.env.DB_PORT
-});
 
 connection.connect((err) => {
     if (err) {
@@ -48,7 +37,7 @@ class DbService {
     async getAllData() {
         try {
             const response = await new Promise((resolve, reject) => {
-                const query = "SELECT * FROM names;";
+                const query = "SELECT * FROM Users;";
 
                 connection.query(query, (err, results) => {
                     if (err) reject(new Error(err.message));
@@ -63,13 +52,11 @@ class DbService {
     }
 
 
-    async insertNewName(name) {
+    async insertNewName(Users) {
         try {
             const dateAdded = new Date();
             const insertId = await new Promise((resolve, reject) => {
                 const query = "INSERT INTO names (name, date_added) VALUES (?,?);";
-
-                connection.query(query, [name, dateAdded] , (err, result) => {
                     if (err) reject(new Error(err.message));
                     resolve(result.insertId);
                 })
